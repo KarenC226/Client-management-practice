@@ -1,12 +1,18 @@
 import pandas as pd
 import streamlit as st
 
-# 讀取 Excel
-df = pd.read_excel("patients.xlsx")
+st.title("患者管理系統")
 
-# 只保留關鍵欄位
-df_filtered = df[["姓名", "到店日期", "訪問狀態"]]
-df_filtered["備註"] = ""  # 新增備註欄位
+# 顯示不同分類的患者
+for status, group in grouped_patients:
+    st.subheader(f"📌 {status} 患者")
+    for index, row in group.iterrows():
+        name = row["姓名"]
+        visit_date = row["到店日期"]
 
-# 分類患者
-grouped_patients = df_filtered.groupby("訪問狀態")
+        # 讓治療師輸入備註
+        note = st.text_input(f"{name}（到店日期: {visit_date}）的備註", key=index)
+        df_filtered.at[index, "備註"] = note
+
+# 顯示整理好的患者資訊
+st.write(df_filtered)
