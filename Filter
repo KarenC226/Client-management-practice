@@ -4,16 +4,16 @@ import pandas as pd
 df = pd.read_excel("patients.xlsx")
 
 # 只保留需要的欄位
-df_filtered = df[["姓名", "到店日期", "訪問狀態"]]
+df_filtered = df[["客戶名稱", "建單時間", "執行項目"]]
 
 # 顯示篩選後的資料
 print(df_filtered.head())
 
-# 按照「訪問狀態」分類患者
-grouped_patients = df_filtered.groupby("訪問狀態")
+# 按照「執行項目」分類患者
+grouped_patients = df_filtered.groupby("執行項目")
 
 # 顯示分類結果
 for status, group in grouped_patients:
     print(f"\n📌 {status} 患者列表")
-    print(group[["姓名", "到店日期"]])
+    print(group[["客戶名稱", "建單時間"]])
 
