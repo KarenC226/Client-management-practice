@@ -1,0 +1,12 @@
+import pandas as pd
+import streamlit as st
+
+# 讀取 Excel
+df = pd.read_excel("patients.xlsx")
+
+# 只保留關鍵欄位
+df_filtered = df[["姓名", "到店日期", "訪問狀態"]]
+df_filtered["備註"] = ""  # 新增備註欄位
+
+# 分類患者
+grouped_patients = df_filtered.groupby("訪問狀態")
